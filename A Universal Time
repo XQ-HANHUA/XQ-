@@ -1,0 +1,199 @@
+-- A Universal Time
+
+local Translations = {["A Universal Time"] = "通用时间",
+    ["By AkatXD"] = "汉化byXQ",
+    ["Main"] = "菜单",
+    ["Boundless Tower"] = "无限之塔",
+    ["Quests"] = "任务",
+    ["Traits"] = "特质",
+    ["Chests/Items"] = "宝箱/物品",
+    ["Shop"] = "商店",
+    ["Teleport"] = "传送",
+    ["Stats"] = "状态",
+    ["Misc"] = "杂项",
+    ["Auto Farm Level"] = "自动刷级",
+    ["Auto Farm Sukuna Finger (lvl 150+)"] = "自动刷宿傩手指",
+    ["Auto Farm NPC"] = "自动刷NPC",
+    ["Auto Farm Bosses"] = "自动刷BOSS",
+    ["Auto Farm Locacaca"] = "自动刷locacaca",
+    ["Farm Settings"] = "刷取设置",
+    ["Farm Distance"] = "刷取距离",
+    ["Auto Buso Haki"] = "自动武装色霸气",
+    ["Auto Sell Items"] = "自动出售物品",
+    ["Auto Store Items"] = "自动储存物品",
+    ["Auto Use Skills"] = "自动使用技能",
+    ["Auto Ascension"] = "自动晋升",
+    ["Party"] = "组队",
+    ["Auto Invite Party"] = "自动邀请组队",
+    ["Auto Accept Party"] = "自动接受组队",
+    ["Auto Farm Nearest NPC"] = "自动刷最近的NPC",
+    ["Auto Skip Wave"] = "自动跳过波次(也可以说回合)",
+    ["Haki Quests"] = "色霸气任务",
+    ["Auto Buso Haki Quest"] = "自动武装色",
+    ["Auto Ken Haki Quest"] = "自动见闻色",
+    ["Auto Hao Haki Quest"] = "自动霸王色",
+    ["Infinite Spawn Kuro(Ucoins Farm)"] = "无限刷黑猫(U币农场)",
+    ["Slayer Quests"] = "讨伐任务",
+    ["Shadow Assassin Quest (lvl 200+)"] = "影刺客任务(200级＋)",
+    ["The Honored One Quest (lvl 180+)"] = "天选之人任务(180级＋)",
+    ["The Bearer Quest (lvl 150+)"] = "承载者任务(150级＋)",
+    ["The Quest Dealer (BETA)"] = "商人任务(测试)",
+    ["Caravan Security Adventure"] = "护卫商人冒险",
+    ["Protect Hardpoint Adventure"] = "保护据点冒险",
+    ["Auto Trait Hand"] = "自动特质选择",
+    ["Current Ability"] = "当前能力",
+    ["Current Trait"] = "当前特质",
+    ["Hide Visual For Cards"] = "隐藏卡片视觉效果",
+    ["Auto Skip Trait Hand"] = "自动跳过特质选择",
+    ["Stop in"] = "停止于",
+    ["Auto Collect Chest"] = "自动收集宝箱",
+    ["Comun Chest"] = "普通宝箱",
+    ["Rare Chest"] = "稀有宝箱",
+    ["Epic Chest"] = "史诗宝箱",
+    ["Legendary Chest"] = "传奇宝箱",
+    ["Items"] = "物品",
+    ["Try to Find a Devil Fruit"] = "尝试寻找恶魔果实",
+    ["Try to Find Camellite Meteorite"] = "尝试寻找骆驼陨石",
+    ["Current Balance"] = "当前余额",
+    ["UShards"] = "U碎片",
+    ["UCoins"] = "U币",
+    ["UPoints"] = "U点数",
+    ["Banner Roll"] = "抽奖卡池",
+    ["Current Banner"] = "当前卡池",
+    ["Roll Method"] = "抽奖方式",
+    ["Auto Banner Roll"] = "自动抽奖",
+    ["Skin Crates Roll"] = "皮肤箱抽奖",
+    ["Skin Crate Method"] = "皮肤箱开启方式",
+    ["Auto Skin Crate Roll"] = "自动抽皮肤箱",
+    ["Status Black Market"] = "黑市状态",
+    ["Black Market Spawned"] = "黑市已刷新",
+    ["Black Market Not Spawned"] = "黑市未刷新",
+    [" to Black Market"] = "到黑市",
+    [" to Banner"] = "到奖池",
+    [" to Spawn Boss"] = "到BOSS刷新点",
+    [" to Spawn Boss 2"] = "到BOSS刷新点2",
+    [" to Kuma"] = "到熊",
+    [" to The Floating Village"] = "到浮空村",
+    [" to The Desert"] = "到沙漠",
+    [" to The Joestar Mansion"] = "到乔斯达宅邸",
+    [" to The Port"] = "送到港口",
+    [" to The Beach"] = "到海滩",
+    ["to Shibuya"] = "到涩谷",
+    ["Auto Stats Points"] = "自动分配属性点",
+    ["Attack"] = "攻击",
+    ["Defense"] = "防御",
+    ["Health"] = "生命值",
+    ["Special"] = "特殊点",
+    }
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AkatsukiHub1/A-Universal-Time/refs/heads/main/README.md"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
