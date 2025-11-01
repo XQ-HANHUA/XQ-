@@ -1,0 +1,179 @@
+-- Auto Block
+
+local Translations = {["Auto Block"] = "自动格挡",
+    ["Hub"] = "汉化byXQ",
+    ["Notice"] = "注意",
+    ["Better Detection"] = "更好的拦截",
+    ["Techs"] = "技术支持",
+    ["Predictive"] = "预测性",
+    ["Fake block"] = "假格挡",
+    ["Auto Punch"] = "自动出拳",
+    ["Custom Animations"] = "自定义动画",
+    ["welcome"] = "欢迎",
+    ["thanks for using my wonderful auto block script"] = "感谢使用XQ汉化的自动格挡脚本",
+    ["some features may only work with guest skins thats using the default anims"] = "某些功能可能仅在使用默认动画的访客皮肤上有效",
+    ["Animation"] = "动画",
+    ["Audio"] = "音频",
+    ["Change auto block type"] = "改变自动格挡类型",
+    ["Recomendation"] = "推荐",
+    ["use audio auto block and use 20 range for it"] = "使用音频自动拦截并将其范围设置为 20",
+    ["Message When Blocking"] = "格挡时发送消息",
+    ["Block Delay"] = "格挡延迟",
+    ["Message when blocking"] = "格挡时发送消息内容",
+    ["notice"] = "注意",
+    ["face check delays on coolkid, dont use face check agaisnt coolkid."] = "在coolkid身上使用面向检查会有延迟，不要对coolkid使用面向检查",
+    ["Enable Facing Check"] = "启用面向检测",
+    ["Facing Check Visual"] = "面向检测可视化",
+    ["facing check visual not being accurate is because its just there to give u an idea of the facing check"] = "面向检查可视化不准确是因为它只是为了让您对面向检查有个大致概念",
+    ["DOT explanation"] = "DOT说明",
+    ["if for example you put it 0 you will need to be EXACTLY in front of the killer.but you can make the facing check cone larger by making it-0.3 or -0.5 if you put-1 is going to be a half circle cone in front the killer, so yeah."] = "比如如果你设置为0，你就需要正好在杀手正前方。但你可以通过设置为-0.3或-0.5来扩大面向检查的锥形范围如果设置为-1，它将成为杀手前方的一个半圆形锥体。",
+    ["Detection Range"] = "检测范围",
+    ["Range Visual"] = "范围可视化",
+    ["Facing Check angle"] = "面向角度检查",
+    ["on coolkid, use normal detection against coolkid"] = "在 coolkid 身上会有延迟，请对 coolkid 使用普通检测模式",
+    ["doesn't use detectrange"] = "不使用检测范围",
+    ["How many block parts that spawn"] = "生成的拦截部位数量",
+    ["Block Parts Size Multiplier"] = "拦截部件大小倍数",
+    ["Forward Prediction Strength"] = "向前预测强度",
+    ["Turn Prediction Strength"] = "转向延迟强度",
+    ["delay before the first block part spawn"] = "首个拦截部件生成前的延迟",
+    ["Auto-adjust DBTFBPS based on killer"] = "根据杀手自动调整 DBTFBPS",
+    ["delay before each block parts spawns (seconds)"] = "每个拦截部件生成前的延迟(秒)",
+    ["how much studs infront killer the block parts are gonna spawn"] = "在杀手前方多少罗布乐思单位处生成拦截部件",
+    ["Double Punch Tech"] = "双重出拳",
+    ["Hitbox Dragging tech"] = "命中箱拖拽",
+    ["HDT speed"] = "HDT速度",
+    ["HDT delay"] = "HDT延迟",
+    ["i reccomend using a high detection range (if using normal detection) when using this"] = "使用此功能时，我建议(如果使用普通检测模式)设置较高的检测范围",
+    ["Fake Lag Tech"] = "虚假延迟",
+    ["Edge Killer"] = "边缘杀手",
+    ["how many secs until it blocks (resets when killer gets out of range)"] = "在多少秒后开始拦截(当杀手超出范围时重置)",
+    ["Load"] = "加载",
+    ["Message When Punching"] = "出拳时发送消息",
+    ["Message when punching"] = "出拳时发送消息内容",
+    ["Fling Punch"] = "甩飞拳",
+    ["Punch Aimbot"] = "出拳自瞄",
+    ["Aim Prediction"] = "瞄准预测距离",
+    ["Fling Power"] = "甩飞力度",
+    ["Enable Custom Block Animation"] = "启用自定义格挡动画",
+    ["AnimationId"] = "动画ID",
+    ["delay before stop anim (block)"] = "停止动画前的延迟(格挡)",
+    ["Custom Punch Animation (not for M3/M4)"] = "自定义肘击动画(不适用于里程碑3和里程碑4)",
+    ["Enable Custom Punch Animation"] = "启用自定义肘击动画",
+    ["delay before stop anim (punch)"] = "停止动画前的延迟(出拳)",
+    ["Charge Animation ID"] = "蓄力动画ID",
+    ["Put animation ID here"] = "在这里输入ID",
+    ["Custom Charge Animation"] = "自定义蓄力动画",
+    }
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/skibidi399/Auto-block-script/refs/heads/main/FINAL%20AUTO%20BLOCK"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
