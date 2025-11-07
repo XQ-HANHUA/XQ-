@@ -1,6 +1,6 @@
 -- Forsaken
 
-local Translations = {["Key"] = "卡密meow",
+local Translations = {["Key"] = "卡密syruppy",
     ["Generators"] = "发电机",
     ["Player"] = "玩家",
     ["Misc"] = "杂项",
