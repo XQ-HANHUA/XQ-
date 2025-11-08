@@ -1,0 +1,191 @@
+-- Murder Mystery 2
+
+local Translations = {["Murder Mystery 2"] = "破坏者谜团2",
+    ["by me"] = "汉化byXQ",
+    ["Main"] = "主菜单",
+    ["Player"] = "玩家",
+    ["Anti Fling"] = "防甩飞",
+    ["Enable Speed"] = "启用速度",
+    ["Walk Speed"] = "移动速度",
+    ["Enable Jump Power"] = "启用跳跃增强",
+    ["Jump Power"] = "跳跃强度",
+    ["Server hop lower server"] = "切换至低负载服务器",
+    ["Server hop random"] = "随机切换服务器",
+    ["info"] = "信息",
+    ["Info"] = "信息",
+    ["nil"] = "无",
+    ["Chams"] = "透视",
+    ["Chams Dropped Gun"] = "透视枪",
+    ["Show Dropped Gun in Yellow."] = "显示枪为黄色",
+    ["Gun"] = "枪",
+    ["here is everything related to the gun"] = "此处是所有与枪械相关的内容",
+    ["silent aim"] = "静默瞄准",
+    ["automatically aim at the murder"] = "自动瞄准杀手",
+    ["shoot murder"] = "射击杀手",
+    ["shoot murder Button"] = "射击杀手按钮",
+    ["Keybind"] = "按键绑定",
+    ["shoot murder Keybind"] = "射击杀手按键锁定",
+    ["grab gun"] = "拾取枪械",
+    ["Grab Gun Button"] = "拾取枪械按钮",
+    ["Notify Dropped gun"] = "通知枪械掉落",
+    ["Auto Grab Gun"] = "自动拾取枪械",
+    ["It will automatically grab the gun when it drop"] = "当枪械掉落时自动拾取",
+    ["Knife"] = "刀",
+    ["There is not alot because idk what to add."] = "这里内容不多，因为我不知道要添加什么",
+    ["kill all"] = "杀死所有人",
+    ["kill all Button"] = "杀死所有人按钮",
+    ["kill Sheriff/Hero"] = "杀死警长/英雄",
+    ["kill Sheriff/Hero Button"] = "杀死警长/英雄按钮",
+    ["kill all Keybind"] = "杀死所有人按键绑定",
+    ["Auto Kill All"] = "自动杀死所有人",
+    ["It will automatically kill everyone in ur game"] = "它会自动杀死游戏中的所有人",
+    ["Autofarm"] = "自动农场",
+    ["Auto Farm"] = "自动农场",
+    ["Toggle Auto Farm"] = "启用自动农场",
+    ["Farm Speed"] = "刷取速度",
+    ["i do not recommend above 21"] = "我不建议超过21",
+    ["Fling Murder When Done"] = "刷完后甩飞杀手",
+    ["Reset When Full"] = "刷满后自杀",
+    ["Kill all when full (Murder Only)"] = "刷满后杀死所有人(仅限杀手)",
+    ["Teleport"] = "传送",
+    ["Tp to lobby"] = "传送到大厅",
+    ["Tp to map"] = "传送到地图",
+    ["Value"] = "交易",
+    ["Trade Helper"] = "交易助手",
+    ["Show you value of items in trades"] = "交易时显示物品价格",
+    ["Minimum item value"] = "最低物品价格",
+    ["Select Minimum Rarity"] = "选择最低品质",
+    ["Select Player To Get Inventory"] = "选定玩家来获取库存",
+    ["Refresh selected player inventory"] = "查看选定玩家库存",
+    ["inventory.txt"] = "库存文件",
+    ["Misc"] = "杂项",
+    ["Select Player To Fling"] = "选择要甩飞的玩家",
+    ["Fling Player"] = "甩飞玩家",
+    ["Fling Murder"] = "甩飞杀手",
+    ["Fling Sheriff/Hero"] = "甩飞警长/英雄",
+    ["second life"] = "第二条命",
+    ["Makes you invincible when you get killed This only works once every round"] = "在你被杀的时候启用无敌这个功能每局只能使用一次",
+    ["Settings"] = "设置",
+    ["Keybind to open ui"] = "锁定打开UI的按键",
+    ["Customize interface"] = "自定义界面",
+    ["Personalize your experience"] = "让你的体验个性化",
+    ["Select Theme"] = "选择主题",
+    ["Window Transparency"] = "窗口透明度",
+    ["Enable Dark Mode"] = "启用深色模式",
+    ["Member Count"] = "成员数量",
+    ["Online Count"] = "在线人数",
+    ["Update info"] = "更新信息",
+    ["Join Server"] = "加入服务器",
+    }
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/croxy1337/hub/refs/heads/main/main.lua"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
