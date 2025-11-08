@@ -1,7 +1,6 @@
 -- dod
 
-local Translations = {["HUB"] = "死亡之死",
-    ["D OF D"] = "汉化byXQ",
+local Translations = {["ILIKES"] = "汉化byXQ",
     ["Survivor ESP"] = "幸存者透视",
     ["Killer ESP"] = "杀手透视",
     ["Ghost ESP"] = "幽灵透视",
