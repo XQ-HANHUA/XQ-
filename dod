@@ -1,0 +1,174 @@
+-- dod
+
+local Translations = {["HUB"] = "死亡之死",
+    ["D OF D"] = "汉化byXQ",
+    ["Survivor ESP"] = "幸存者透视",
+    ["Killer ESP"] = "杀手透视",
+    ["Ghost ESP"] = "幽灵透视",
+    ["Enable ESP"] = "启用透视",
+    ["Show Name"] = "显示名称",
+    ["Show HP"] = "显示生命值",
+    ["Show Fill"] = "显示填充",
+    ["Fill Color"] = "填充颜色",
+    ["Fill Transparency"] = "填充透明度",
+    ["Show Outline"] = "显示轮廓",
+    ["Outline Color"] = "轮廓颜色",
+    ["Outline Transparency"] = "轮廓透明度",
+    ["Speed Settings"] = "速度设置",
+    ["WalkSpeed"] = "行走速度",
+    ["Enable WalkSpeed"] = "启用行走速度",
+    ["SprintSpeed"] = "奔跑速度",
+    ["Enable Sprint"] = "启用冲刺速度",
+    ["Delete Block (Animation)"] = "删除格挡(动画)",
+    ["Show Cooldown"] = "显示冷却时间",
+    ["Enable Pursuer"] = "启用追踪",
+    ["Enable Harken"] = "启用钩爪辅助",
+    ["Enable Killdroid"] = "启用杀戮机器人",
+    ["Enable Badware"] = "启用坏件",
+    ["Enable Artful"] = "启用技巧",
+    ["Block Distance"] = "格挡距离",
+    ["Skills & Selector"] = "技能 & 选择器",
+    ["Selected Skills"] = "已选技能",
+    ["Select Skill 1"] = "选择技能1",
+    ["Select Skill 2"] = "选择技能2",
+    ["Revolver"] = "枪",
+    ["Punch"] = "拳击",
+    ["Block"] = "格挡",
+    ["Caretaker"] = "治疗",
+    ["Hotdog"] = "热狗",
+    ["Taunt"] = "嘲讽",
+    ["Cloak"] = "隐身",
+    ["Dash"] = "冲刺",
+    ["Banana"] = "香蕉",
+    ["BonusPad"] = "加速板",
+    ["Adrenaline"] = "肾上腺素",
+    ["Gameplay Settings"] = "游戏玩法设置",
+    ["Lock WalkSpeedModifier"] = "锁定移动速度修改器",
+    ["Enable Custom MaxStamina"] = "启用自定义体力",
+    ["Custom MaxStamina (0-999999)"] = "自定义最大体力(0-999999)",
+    ["Anti-Artful Walls"] = "反技巧穿墙",
+    ["Implement Fast Artful"] = "启用快速技巧",
+    ["No M1 when Blocking (You Killer)"] = "当幸存格挡时没有普攻(你是杀手)",
+    ["Blocking Detect Range"] = "格挡检测范围",
+    ["Settings"] = "设置",
+    ["Instant ProximityPrompt"] = "秒互动",
+    ["Unload Script"] = "卸载脚本",
+    ["Animation"] = "动画",
+    ["Anim Skill Old"] = "旧技能动画",
+    ["Anim Skill New"] = "新技能动画",
+    ["Other"] = "其它",
+    ["Change Animation V2"] = "更改动画V2",
+    ["Flip Script"] = "前空翻脚本",
+    }
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tranvanxanh0502-afk/Die-Oof-Death/refs/heads/main/Die-Oof-Death.lua"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
