@@ -1,0 +1,185 @@
+-- XCHAIN-XQ汉化
+
+local Translations = {["Funfact"] = "XQ汉化",
+    ["Néonicf is an iOS user, & Man is a Windows user | Join my Discordcat"] = "汉化交流群1003077757",
+    ["Main Tabs"] = "主要",
+    ["Remove Adonis anticheat"] = "绕过反作弊「必点」",
+    ["Copy discord invite link"] = "复制dc链接",
+    ["Destroy UI"] = "卸载脚本",
+    ["Chapter I script by Neonicf"] = "第一章脚本",
+    ["Random color picker idk"] = "颜色选择器",
+    ["Combat"] = "战斗",
+    ["Inf Stamina"] = "无限体力",
+    ["Inf Combat Stamina"] = "无限战斗体力",
+    ["Tomahawk AttackSpeed"] = "战斧攻击速度",
+    ["Clash Strength"] = "拼刀进度条保持100%",
+    ["God Mode"] = "上帝模式「已失效」",
+    ["WalkSpeed - glitchy kinda"] = "移动速度「改不回来」",
+    ["Set speed to 12 - default speed"] = "设置12为初始速度「失效」",
+    ["Speed by Bloxy"] = "可乐速度「失效」",
+    ["Bypass beatrap placement"] = "绕过陷阱放置限制「失效」",
+    ["ThirdPerson"] = "第三人称",
+    ["Remove Mask on head - third person"] = "移除头上的面具",
+    ["CHAIN Hitbox expander beta - slightly updated may glitch chain CHAIN"] = "CHAIN碰撞箱扩展",
+    ["See Chat"] = "聊天可见",
+    ["These are mostly people who will ban/report you so be careful"] = "这些人会封禁你或者举报你",
+    ["Detect Special Thanks people"] = "检测特别感谢名单里的人",
+    ["Detect Contributers"] = "检测贡献者",
+    ["Detect Mods/Admins (include server mods)"] = "检测服务器主/管理员",
+    ["Detect Testers"] = "检测测试者",
+    ["Detect Managers"] = "检测管理员",
+    ["Detect Bloodmoon"] = "检测血月",
+    ["Detect Chain's Choke"] = "检测掐脖",
+    ["Detect Chain's Groundslam"] = "检测捶地",
+    ["Unlock all Blueprints"] = "解锁所有蓝图",
+    ["Unlock CombatKnife"] = "解锁小刀",
+    ["Unlock Deagle"] = "解锁沙鹰",
+    ["Unlock DoubleBarrel"] = "解锁双管",
+    ["Unlock M1911"] = "解锁M1911",
+    ["Unlock Machete"] = "解锁老砍刀",
+    ["Unlock SpellBook (may be glitched)"] = "解锁魔法书「别开有严重bug」",
+    ["Unlock Artifact Quest (might fix spellbook blueprint)"] = "解锁神器任务「可能修复魔法书bug」",
+    ["GUI interface"] = "GUI界面",
+    ["Watch and Power Gui"] = "手表与电力界面",
+    ["Shop Gui - Only works during day"] = "商店界面-仅限白天",
+    ["Deconstructor Gui"] = "解构器界面",
+    ["Workbench Gui"] = "工作台界面",
+    ["Render"] = "视觉",
+    ["nofog"] = "无雾",
+    ["fullbright"] = "全亮",
+    ["chain info esp"] = "chain信息透视",
+    ["Scrap ESP - not mine"] = "废料透视",
+    ["Artifact ESP"] = "书页透视",
+    ["AutoFarm"] = "自动农场",
+    ["Auto collect Scrap"] = "自动收集废料",
+    ["Auto collect Artifact"] = "自动收集书页",
+    ["Teleport - Locations"] = "传送",
+    ["SafeHouse"] = "安全屋",
+    ["WorkShop Outside"] = "工作间外面",
+    ["WorkShop Inside"] = "工作间里面",
+    ["Cabin inside"] = "小屋内部",
+    ["Shop"] = "商店",
+    ["PowerStation"] = "发电站",
+    ["WareHouse"] = "仓库",
+    ["Ritual"] = "仪式",
+    ["LeaderBoard"] = "排行榜",
+    ["Radio Tower"] = "无线电塔",
+    ["Teleport Outside Map - safe"] = "安全区-地图外",
+    ["Animation Logger"] = "动画-没啥用",
+    ["Tutorial"] = "教程",
+    ["Updates"] = "更新日志",
+    ["Credits"] = "致谢名单",
+    ["Themes"] = "主题",
+    }
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Neonicf/Ray-field-CHAIN/refs/heads/main/2.6.5%20XCHain%20script'))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
