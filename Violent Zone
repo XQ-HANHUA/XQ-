@@ -161,7 +161,7 @@ task.wait(2)
 setupTranslationEngine()
 
 local success, err = pcall(function()
-getgenv().key = "https://discord.gg/SRG7QTvEuR"loadstring(game:HttpGet("https://raw.githubusercontent.com/areyourealforme/77wiki/refs/heads/main/violencedistrict.lua"))()
+getgenv().key = "https://discord.gg/SRG7QTvEuR"loadstring(game:HttpGet("https://raw.githubusercontent.com/deadbydead11-beep/77wiki/refs/heads/main/violencedistrict.lua"))()
 end)
 
 if not success then
