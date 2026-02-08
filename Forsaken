@@ -1,6 +1,6 @@
 -- Forsaken
 
-local Translations = {["Fartsaken Key Saystem"] = "卡密是epstein",
+local Translations = {["Fartsaken Key System"] = "卡密是epstein",
     ["Generators"] = "发电机",
     ["Player"] = "玩家",
     ["Misc"] = "杂项",
