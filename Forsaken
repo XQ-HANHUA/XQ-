@@ -1,6 +1,6 @@
 -- Forsaken
 
-local Translations = {["Key"] = "卡密syruppy",
+local Translations = {["Fartsaken Key Saystem"] = "卡密是epstein",
     ["Generators"] = "发电机",
     ["Player"] = "玩家",
     ["Misc"] = "杂项",
@@ -14,7 +14,6 @@ local Translations = {["Key"] = "卡密syruppy",
     ["You used the script"] = "你已使用脚本",
     ["Support Server"] = "支持服务器",
     ["Information"] = "信息",
-    ["Fartsaken"] = "Fartsaken(XQ汉化)",
     ["Script is updated"] = "脚本已更新",
     ["Developers"] = "开发者",
     ["Contributors"] = "贡献者",
