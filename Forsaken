@@ -1,6 +1,6 @@
 -- Forsaken
 
-local Translations = {["Fartsaken Key System"] = "卡密已改为luarmor形式，详情见视频",
+local Translations = {["Fartsaken Key System"] = "卡密是aura",
     ["Generators"] = "发电机",
     ["Player"] = "玩家",
     ["Misc"] = "杂项",
@@ -256,6 +256,7 @@ task.wait(2)
 setupTranslationEngine()
 
 local success, err = pcall(function()
+getgenv().PcEsp = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ivannetta/ShitScripts/main/forsaken.lua"))()
 end)
 
