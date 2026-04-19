@@ -1,0 +1,253 @@
+-- Msploit 完整汉化版
+-- 汉化 by XQ
+
+local Translations = {
+    ["Home"] = "主页",
+    ["Player"] = "玩家",
+    ["Main"] = "主要",
+    ["Visual Effects"] = "视觉效果",
+    ["Furious"] = "狂暴",
+    ["Rage"] = "愤怒",
+    ["Block"] = "格挡",
+    ["Misc"] = "杂项",
+    ["Settings"] = "设置",
+    ["Addons"] = "插件",
+    ["Welcome"] = "欢迎",
+    ["Welcome to <font color=\"rgb(0,255,0)\">Msploit</font> , Have Fun!"] = "欢迎来到<font color=\"rgb(0,255,0)\">Msploit</font>，玩得开心！",
+    ["Owner"] = "作者",
+    ["[<font color='#00E600'>MicLing</font>] - Onwer"] = "[<font color='#00E600'>MicLing</font>] - 作者",
+    ["Developer"] = "开发者",
+    ["[<font color='#00E600'>Ccat</font>] - Participated in Script Development"] = "[<font color='#00E600'>Ccat</font>] - 参与脚本开发",
+    ["[<font color='#00E600'>Du8</font>] - Participated in Script Development"] = "[<font color='#00E600'>Du8</font>] - 参与脚本开发",
+    ["[<font color='#00E600'>Anti</font>] - Participated in Script Development"] = "[<font color='#00E600'>Anti</font>] - 参与脚本开发",
+    ["[<font color='#00E600'>Abyass-King</font>] - Participated in Script Development"] = "[<font color='#00E600'>Abyass-King</font>] - 参与脚本开发",
+    ["[<font color='#00E600'>Yuxingchen</font>] - Participated in Script Development"] = "[<font color='#00E600'>Yuxingchen</font>] - 参与脚本开发",
+    ["Executor"] = "注入器",
+    ["Speed Hack"] = "速度修改",
+    ["Enable Speed Hack"] = "启用速度修改",
+    ["Speed Bypass: <font color=\"rgb(255,0,0)\">Active</font>"] = "速度绕过: <font color=\"rgb(255,0,0)\">已激活</font>",
+    ["No Acceleration"] = "无加速度",
+    ["<font color=\"rgb(255,0,0)\">Speed Bypass</font>"] = "<font color=\"rgb(255,0,0)\">速度绕过</font>",
+    ["Others"] = "其他",
+    ["Noclip"] = "穿墙",
+    ["Anti AFK"] = "防挂机被踢",
+    ["Jump Height"] = "跳跃高度",
+    ["Died"] = "死亡",
+    ["Rejoin"] = "重新进入",
+    ["Stamina"] = "体力",
+    ["Infinite Stamina"] = "无限体力",
+    ["Activated once per game"] = "每局开一次",
+    ["Sprint"] = "冲刺",
+    ["Infinite Sprint"] = "无限冲刺",
+    ["Auto Generator"] = "自动修机",
+    ["Teleport To Generator"] = "传送至发电机",
+    ["Generator"] = "发电机",
+    ["FuseBox"] = "电箱",
+    ["Teleport To Battery"] = "传送至电池",
+    ["Automatic"] = "自动",
+    ["Select player to hunt"] = "选择要追捕的玩家",
+    ["Teleport Kill"] = "传送击杀",
+    ["Auto Block Door"] = "自动挡门",
+    ["Auto Escape"] = "自动逃脱",
+    ["Auto Wire[BUG]"] = "自动接线[有BUG]",
+    ["ESP"] = "透视",
+    ["Highlight"] = "高亮",
+    ["Killer"] = "杀手",
+    ["Survivor"] = "幸存者",
+    ["Battery"] = "电池",
+    ["Trap"] = "陷阱",
+    ["Door"] = "门",
+    ["Environment"] = "环境",
+    ["No Barriers"] = "无视障碍物",
+    ["Fullbright"] = "全亮",
+    ["No Fog"] = "无雾",
+    ["Visuals"] = "视觉",
+    ["Field of View"] = "视野范围",
+    ["Enable Field of View"] = "启用视野范围",
+    ["Warning"] = "警告",
+    ["The killer can't attack your real body, but they can still hurt you while you're in ghost form. We recommend activating stealth first, then either interacting with a generator once or blocking a door to better avoid being killed."] = "杀手无法攻击你的实体，但在幽灵形态下仍然可以伤害你。建议先激活隐身，然后与发电机互动一次或挡门，以更好地避免被击杀。",
+    ["Invisibility"] = "隐身",
+    ["Mode"] = "模式",
+    ["Fix"] = "修复",
+    ["Ghost"] = "幽灵",
+    ["Update Marker"] = "更新标记",
+    ["Aim Distance"] = "瞄准距离",
+    ["Killer Silent Aim"] = "杀手静默自瞄",
+    ["Aimbot"] = "自瞄",
+    ["Survivors"] = "幸存者",
+    ["Taser gun Aimbot"] = "电击枪自瞄",
+    ["Tracking"] = "追踪",
+    ["<font color=\"rgb(255, 0, 0)\">Enable Springtrap tracking</font>"] = "<font color=\"rgb(255, 0, 0)\">启用弹簧陷阱追踪</font>",
+    ["Sorry Gus ,Auto Block is under maintenance. Please wait for the update."] = "抱歉，自动格挡正在维护中，请等待更新。",
+    ["Animation"] = "动画",
+    ["Emote Settings"] = "表情设置",
+    ["Select Emote"] = "选择表情",
+    ["Scan Emote Folder"] = "扫描表情文件夹",
+    ["Playback Controls"] = "播放控制",
+    ["Play Emote"] = "播放表情",
+    ["Loop Play"] = "循环播放",
+    ["Play Once"] = "播放一次",
+    ["Hitbox"] = "碰撞箱",
+    ["Enlarge Hitbox"] = "扩大碰撞箱",
+    ["Hitbox Size"] = "碰撞箱大小",
+    ["Ignore"] = "忽略",
+    ["Destroy Door"] = "摧毁门",
+    ["Destroy DoubleDoor"] = "摧毁双开门",
+    ["Info"] = "信息",
+    ["user"] = "用户",
+    ["use time"] = "使用时长",
+    ["country：zh-cn"] = "国家：中国",
+    ["Player Name"] = "玩家名称",
+    ["Exploit"] = "执行器",
+    ["Background color"] = "背景颜色",
+    ["Main color"] = "主色调",
+    ["Accent color"] = "强调色",
+    ["Outline color"] = "轮廓颜色",
+    ["Font color"] = "字体颜色",
+    ["Font Face"] = "字体样式",
+    ["Code"] = "代码",
+    ["Theme list"] = "主题列表",
+    ["Set as default"] = "设为默认",
+    ["Custom theme name"] = "自定义主题名称",
+    ["Create theme"] = "创建主题",
+    ["Custom themes"] = "自定义主题",
+    ["Load theme"] = "加载主题",
+    ["Overwrite theme"] = "覆盖主题",
+    ["Delete theme"] = "删除主题",
+    ["Refresh list"] = "刷新列表",
+    ["Reset default"] = "重置默认",
+    ["UI Settings"] = "界面设置",
+    ["Keybind"] = "快捷键",
+    ["Unlock FPS"] = "解锁帧率",
+    ["Custom cursor"] = "自定义鼠标",
+    ["Notify side"] = "通知位置",
+    ["UI size"] = "界面大小",
+    ["Menu"] = "菜单",
+    ["Unload UI"] = "卸载界面",
+    ["Configuration"] = "配置",
+    ["Config name"] = "配置名称",
+    ["Create config"] = "创建配置",
+    ["Config list"] = "配置列表",
+    ["Load config"] = "加载配置",
+    ["Overwrite config"] = "覆盖配置",
+    ["Delete config"] = "删除配置",
+    ["Set as autoload"] = "设为自动加载",
+    ["Reset autoload"] = "重置自动加载",
+    ["Current autoload config:"] = "当前自动加载配置",
+    ["Warn！"] = "警告！",
+    ["Warning! Any script placed in the msploit-plugins/Addons folder will be executed by the executor. We recommend only using plugins from trusted sources or open-source repositories. We are not responsible for any damage caused by third-party plugins. This is your final warning!"] = "警告！放置在 msploit-plugins/Addons 文件夹中的任何脚本都将被执行器执行。我们建议仅使用来自可信来源或开源仓库的插件。我们对第三方插件造成的任何损害不承担责任。这是最后的警告！",
+    ["Toggle"] = "开关",
+    ["Lock"] = "锁定",
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        local pattern = en:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
+        if text:find(pattern, 1, true) then
+            return text:gsub(pattern, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+        
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+setupTranslationEngine()
+
+local success, err = pcall(function()
+    loadstring(game:HttpGet("https://github.com/MicLing-7877/Msploit/raw/main/load/Msploit?raw=true"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
