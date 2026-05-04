@@ -1,96 +1,180 @@
--- Murder Mystery 2
+-- HoneyLua - Murder Mystery 2 自动农场 完整汉化版
+-- 汉化 by XQ
 
-local Translations = {["Murder Mystery 2"] = "破坏者谜团2",
-    ["by me"] = "汉化byXQ",
-    ["Main"] = "主菜单",
+local Translations = {
+    ["🍯 HoneyLua"] = "🍯 蜂蜜Lua",
     ["Player"] = "玩家",
-    ["Anti Fling"] = "防甩飞",
-    ["Enable Speed"] = "启用速度",
-    ["Walk Speed"] = "移动速度",
-    ["Enable Jump Power"] = "启用跳跃增强",
-    ["Jump Power"] = "跳跃强度",
-    ["Server hop lower server"] = "切换至低负载服务器",
-    ["Server hop random"] = "随机切换服务器",
-    ["info"] = "信息",
-    ["Info"] = "信息",
-    ["nil"] = "无",
-    ["Chams"] = "透视",
-    ["Chams Dropped Gun"] = "透视枪",
-    ["Show Dropped Gun in Yellow."] = "显示枪为黄色",
-    ["Gun"] = "枪",
-    ["here is everything related to the gun"] = "此处是所有与枪械相关的内容",
-    ["silent aim"] = "静默瞄准",
-    ["automatically aim at the murder"] = "自动瞄准杀手",
-    ["shoot murder"] = "射击杀手",
-    ["shoot murder Button"] = "射击杀手按钮",
-    ["Keybind"] = "按键绑定",
-    ["shoot murder Keybind"] = "射击杀手按键锁定",
-    ["grab gun"] = "拾取枪械",
-    ["Grab Gun Button"] = "拾取枪械按钮",
-    ["Notify Dropped gun"] = "通知枪械掉落",
-    ["Auto Grab Gun"] = "自动拾取枪械",
-    ["It will automatically grab the gun when it drop"] = "当枪械掉落时自动拾取",
-    ["Knife"] = "刀",
-    ["There is not alot because idk what to add."] = "这里内容不多，因为我不知道要添加什么",
-    ["kill all"] = "杀死所有人",
-    ["kill all Button"] = "杀死所有人按钮",
-    ["kill Sheriff/Hero"] = "杀死警长/英雄",
-    ["kill Sheriff/Hero Button"] = "杀死警长/英雄按钮",
-    ["kill all Keybind"] = "杀死所有人按键绑定",
-    ["Auto Kill All"] = "自动杀死所有人",
-    ["It will automatically kill everyone in ur game"] = "它会自动杀死游戏中的所有人",
-    ["Autofarm"] = "自动农场",
-    ["Auto Farm"] = "自动农场",
-    ["Toggle Auto Farm"] = "启用自动农场",
-    ["Farm Speed"] = "刷取速度",
-    ["i do not recommend above 21"] = "我不建议超过21",
-    ["Fling Murder When Done"] = "刷完后甩飞杀手",
-    ["Reset When Full"] = "刷满后自杀",
-    ["Kill all when full (Murder Only)"] = "刷满后杀死所有人(仅限杀手)",
-    ["Teleport"] = "传送",
-    ["Tp to lobby"] = "传送到大厅",
-    ["Tp to map"] = "传送到地图",
-    ["Value"] = "交易",
-    ["Trade Helper"] = "交易助手",
-    ["Show you value of items in trades"] = "交易时显示物品价格",
-    ["Minimum item value"] = "最低物品价格",
-    ["Select Minimum Rarity"] = "选择最低品质",
-    ["Select Player To Get Inventory"] = "选定玩家来获取库存",
-    ["Refresh selected player inventory"] = "查看选定玩家库存",
-    ["inventory.txt"] = "库存文件",
+    ["Visuals"] = "视觉",
+    ["Combat"] = "战斗",
+    ["Farm"] = "农场",
     ["Misc"] = "杂项",
-    ["Select Player To Fling"] = "选择要甩飞的玩家",
-    ["Fling Player"] = "甩飞玩家",
-    ["Fling Murder"] = "甩飞杀手",
-    ["Fling Sheriff/Hero"] = "甩飞警长/英雄",
-    ["second life"] = "第二条命",
-    ["Makes you invincible when you get killed This only works once every round"] = "在你被杀的时候启用无敌这个功能每局只能使用一次",
-    ["Settings"] = "设置",
-    ["Keybind to open ui"] = "锁定打开UI的按键",
-    ["Customize interface"] = "自定义界面",
-    ["Personalize your experience"] = "让你的体验个性化",
-    ["Select Theme"] = "选择主题",
-    ["Window Transparency"] = "窗口透明度",
-    ["Enable Dark Mode"] = "启用深色模式",
-    ["Member Count"] = "成员数量",
-    ["Online Count"] = "在线人数",
-    ["Update info"] = "更新信息",
-    ["Join Server"] = "加入服务器",
-    }
+    ["Config Manager"] = "配置管理",
+    ["default"] = "默认",
+    ["Create"] = "创建",
+    ["Config"] = "配置",
+    ["  default"] = "  默认",
+    ["Auto Load"] = "自动加载",
+    ["Auto Save"] = "自动保存",
+    ["Save"] = "保存",
+    ["Load"] = "加载",
+    ["Reset"] = "重置",
+    ["Delete"] = "删除",
+    ["Share Config"] = "分享配置",
+    ["Import Config"] = "导入配置",
+    ["Interface"] = "界面",
+    ["Language"] = "语言",
+    ["Lock Interface"] = "锁定界面",
+    ["Toggle Button"] = "开关按钮",
+    ["Transparency Mode"] = "透明模式",
+    ["  Full"] = "  完全",
+    ["Transparency Amount"] = "透明度",
+    ["Light Mode"] = "亮色模式",
+    ["Player Whitelist"] = "玩家白名单",
+    ["Whitelisted players are not affected by 'all target' features."] = "白名单玩家不受'全体目标'功能影响。",
+    ["Whitelisted Players"] = "白名单玩家",
+    ["  Select"] = "  选择",
+    ["Clear Whitelist"] = "清空白名单",
+    ["Movement"] = "移动",
+    ["WalkSpeed"] = "行走速度",
+    ["JumpPower"] = "跳跃力度",
+    ["Fly"] = "飞行",
+    ["Noclip"] = "穿墙",
+    ["Float"] = "悬浮",
+    ["Invisible"] = "隐身",
+    ["Anti Fling"] = "防甩飞",
+    ["Teleports"] = "传送",
+    ["Lobby"] = "大厅",
+    ["Voting Room"] = "投票室",
+    ["Map"] = "地图",
+    ["Sheriff"] = "警长",
+    ["Murderer"] = "杀手",
+    ["Go"] = "前往",
+    ["Server"] = "服务器",
+    ["Hop Player Count"] = "跳转服务器玩家数量",
+    ["12"] = "12",
+    ["Hop If Empty"] = "空服跳转",
+    ["Server Hop"] = "跳转服务器",
+    ["Rejoin If Kicked"] = "被踢后重连",
+    ["Round Status"] = "回合状态",
+    ["ESP / Visuals"] = "透视/视觉效果",
+    ["Murderer ESP"] = "杀手透视",
+    ["  Highlight"] = "  高亮",
+    ["Sheriff ESP"] = "警长透视",
+    ["Innocent ESP"] = "无辜者透视",
+    ["Dropped Gun ESP"] = "掉落枪支透视",
+    ["Trap ESP"] = "陷阱透视",
+    ["Coin ESP"] = "金币透视",
+    ["  Chams"] = "  彩色模型",
+    ["Trail ESP"] = "拖尾透视",
+    ["Gun Trail"] = "枪支拖尾",
+    ["Custom"] = "自定义",
+    ["Gun Impact"] = "枪支击中特效",
+    ["Knife Trail"] = "刀拖尾",
+    ["Knife Impact"] = "刀击中特效",
+    ["Trade"] = "交易",
+    ["Items Checker"] = "物品检查器",
+    ["View Trade Values"] = "查看交易价值",
+    ["View Profile Values"] = "查看个人资料价值",
+    ["Notifications"] = "通知",
+    ["Murderer Reveal"] = "杀手揭露",
+    ["Sheriff Reveal"] = "警长揭露",
+    ["Gun Drop"] = "枪支掉落",
+    ["Innocent"] = "无辜者",
+    ["Fling Kill"] = "甩飞击杀",
+    ["Fling"] = "甩飞",
+    ["Fling Kill All"] = "甩飞击杀全部",
+    ["Gun Collect Reach"] = "拾枪范围",
+    ["Auto Grab Gun"] = "自动捡枪",
+    ["Grab Gun"] = "捡枪",
+    ["Auto Steal Gun"] = "自动偷枪",
+    ["Steal Gun"] = "偷枪",
+    ["Silent Aim"] = "静默自瞄",
+    ["  Precise"] = "  精准",
+    ["Trigger Bot"] = "触发机器人",
+    ["  Visible"] = "  可见",
+    ["Shoot Innocent"] = "射击无辜者",
+    ["Shoot"] = "射击",
+    ["Shoot Murderer"] = "射击杀手",
+    ["Stab Player"] = "刺杀玩家",
+    ["         ripnewplayer24"] = "        ripnewplayer24",
+    ["Stab"] = "刺杀",
+    ["Stab All"] = "刺杀全部",
+    ["Kill Aura"] = "杀戮光环",
+    ["Stab Reach"] = "刺杀范围",
+    ["Knife Throw Hitbox"] = "飞刀碰撞箱",
+    ["Status"] = "状态",
+    ["Status Update"] = "状态更新",
+    ["Automation"] = "自动化",
+    ["Coin Type"] = "金币类型",
+    ["         Coin"] = "         金币",
+    ["To Do When Done"] = "完成后执行",
+    ["  End Round"] = "  结束回合",
+    ["Enable Coin Farm"] = "启用金币农场",
+    ["To do When Murderer"] = "当杀手时执行",
+    ["  Stab All"] = "  刺杀全部",
+    ["To do When Sheriff"] = "当警长时执行",
+    ["  Shoot Murderer"] = "  射击杀手",
+    ["To do When Innocent"] = "当无辜者时执行",
+    ["  Steal Gun"] = "  偷枪",
+    ["To do When Dead"] = "死亡时执行",
+    ["  Fling Murderer"] = "  甩飞杀手",
+    ["Enable XP Farm"] = "启用经验农场",
+    ["Trade Strictness"] = "交易严格度",
+    ["  Balanced"] = "  平衡",
+    ["Upgrade Gap"] = "升级差距",
+    ["Min Value"] = "最小价值",
+    ["Min Count"] = "最小数量",
+    ["Req Timeout"] = "请求超时",
+    ["Scan Delay"] = "扫描延迟",
+    ["Max Profiles"] = "最大资料数",
+    ["Target Priority"] = "目标优先级",
+    ["  Highest Value"] = "  最高价值",
+    ["Require New Items"] = "需要新物品",
+    ["Value Pages"] = "价值页面",
+    ["Hop Behavior"] = "跳转行为",
+    ["  Always"] = "  总是",
+    ["Enable Trade Farm"] = "启用交易农场",
+    ["To do When No Task"] = "无任务时执行",
+    ["  Wait"] = "  等待",
+    ["Spam Jump on Danger"] = "危险时连跳",
+    ["Enable Auto Player"] = "启用自动玩家",
+    ["Helper"] = "助手",
+    ["Focus Mode"] = "专注模式",
+    ["Auto Prestige"] = "自动转生",
+    ["Auto Unbox"] = "自动开箱",
+    ["         MysteryBox1"] = "         神秘箱1",
+    ["Webhook (Optional)"] = "网络钩子 (可选)",
+    ["Coin"] = "金币",
+    ["XP"] = "经验",
+    ["Round"] = "回合",
+    ["Force Map"] = "强制地图",
+    ["Shaders"] = "着色器",
+    ["Second Life"] = "第二条命",
+    ["Allow Spectate While Alive"] = "存活时允许观战",
+    ["End Round If Dead"] = "死亡后结束回合",
+    ["End Round"] = "结束回合",
+    ["Toy"] = "玩具",
+    ["Auto Equip"] = "自动装备",
+    ["Unlock Emotes"] = "解锁表情",
+    ["FireFly Clutch"] = "萤火虫绝杀",
+    ["Bomb Clutch"] = "炸弹绝杀",
+    ["Clutch"] = "绝杀",
+    ["Coin Aura"] = "金币光环",
+    ["Mute Coins"] = "静音金币",
+    ["Hide Coins"] = "隐藏金币",
+    ["Delete Coins"] = "删除金币",
+    ["Radio"] = "收音机",
+    ["Sound Browser"] = "声音浏览器",
+    ["Auto Play Song"] = "自动播放歌曲",
+    ["Requires Radio access"] = "需要收音机权限",
+    ["Mute Other Radios"] = "静音其他收音机",
+}
 
 local function translateText(text)
     if not text or type(text) ~= "string" then return text end
-    
     if Translations[text] then
         return Translations[text]
     end
-    
-    for en, cn in pairs(Translations) do
-        if text:find(en) then
-            return text:gsub(en, cn)
-        end
-    end
-    
     return text
 end
 
@@ -111,7 +195,7 @@ local function setupTranslationEngine()
     
     if not success then
         warn("元表劫持失败:", err)
-       
+        
         local translated = {}
         local function scanAndTranslate()
             for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
@@ -126,24 +210,6 @@ local function setupTranslationEngine()
                             end
                         end
                     end)
-                end
-            end
-            
-            local player = game:GetService("Players").LocalPlayer
-            if player and player:FindFirstChild("PlayerGui") then
-                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
-                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
-                        pcall(function()
-                            local text = gui.Text
-                            if text and text ~= "" then
-                                local translatedText = translateText(text)
-                                if translatedText ~= text then
-                                    gui.Text = translatedText
-                                    translated[gui] = true
-                                end
-                            end
-                        end)
-                    end
                 end
             end
         end
@@ -166,10 +232,6 @@ local function setupTranslationEngine()
         end
         
         pcall(setupDescendantListener, game:GetService("CoreGui"))
-        local player = game:GetService("Players").LocalPlayer
-        if player and player:FindFirstChild("PlayerGui") then
-            pcall(setupDescendantListener, player.PlayerGui)
-        end
         
         while true do
             scanAndTranslate()
@@ -179,11 +241,10 @@ local function setupTranslationEngine()
 end
 
 task.wait(2)
-
 setupTranslationEngine()
 
 local success, err = pcall(function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/croxy1337/hub/refs/heads/main/main.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ZenosScript/Mm2Autofarm/refs/heads/main/Valentines"))()
 end)
 
 if not success then
