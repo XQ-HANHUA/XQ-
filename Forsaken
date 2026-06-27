@@ -227,7 +227,7 @@ task.wait(2)
 setupTranslationEngine()
 
 local success, err = pcall(function()
-    loadstring(game:HttpGet("https://yoxi-hub.fun/api/loader"))()
+    loadstring(game:HttpGet("https://yoxi-hub.fun/loader.lua"))()
 end)
 
 if not success then
